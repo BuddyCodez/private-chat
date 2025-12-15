@@ -1,16 +1,17 @@
 import { Elysia, t } from 'elysia'
 
+const rooms = new Elysia({ prefix: "/room" })
+    .post("/", () => {
+    console.log("Room created")
+})
+
 const app = new Elysia({ prefix: '/api' })
-    .get('/', 'Api Route is up!')
-    .post('/', ({ body }) => body, {
-        body: t.Object({
-            name: t.String()
-        })
-    })
+.use(rooms)
 
-export const GET = app.fetch 
-export const POST = app.fetch 
 
-console.log(
-    `🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`
-);
+    
+export const GET = app.fetch;
+export const POST = app.fetch;
+export type App = typeof app;
+
+
